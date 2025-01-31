@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Surprise</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="hearts"></div>
+    <div class="envelope" onclick="openEnvelope()">
+        <div class="flap"></div>
+        <div class="letter">
+            <p class="main-text">Will you be my Valentine? <span class="hibiscus">🌺</span></p>
+            <div class="buttons">
+                <button class="yes-btn" onclick="selectYes(event)">Yes</button>
+                <button class="no-btn" onclick="selectNo(event)">No</button>
+            </div>
+            <p class="error-message">The only answer you can click is yes!</p>
+        </div>
+    </div>
+
+    <script>
+        function openEnvelope() {
+            const envelope = document.querySelector('.envelope');
+            envelope.classList.add('open');
+        }
+
+        function selectNo(event) {
+            event.stopPropagation();
+            const noBtn = document.querySelector('.no-btn');
+            const errorMessage = document.querySelector('.error-message');
+            noBtn.classList.add('shake');
+            errorMessage.style.display = 'block';
+            setTimeout(() => noBtn.classList.remove('shake'), 500);
+        }
+
+        function selectYes(event) {
+            event.stopPropagation();
+            window.location.href = "thank_you.html"; // Redirect to the new page
+        }
+
+        function generateHearts() {
+            const heartsContainer = document.querySelector('.hearts');
+            for (let i = 0; i < 30; i++) {
+                let heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.style.left = `${Math.random() * 100}vw`;
+                heart.style.animationDuration = `${3 + Math.random() * 2}s`;
+                heartsContainer.appendChild(heart);
+                setTimeout(() => heart.remove(), 5000);
+            }
+        }
+
+        window.onload = generateHearts;
+    </script>
+</body>
+</html>
+
+
